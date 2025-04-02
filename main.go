@@ -8,10 +8,12 @@
 package main
 
 import (
+	"bufio"
 	"encoding/json"
 	"fmt"
 	"io"
 	"os"
+	"strings"
 
 	task "github.com/WalterAvendano/CLI_docker_images/tasks"
 )
@@ -66,6 +68,17 @@ func main() {
 	switch os.Args[1] {
 	case "Listar":
 		task.ListTask(tasks)
+	case "Agregar":
+		reader := bufio.NewReader(os.Stdin)
+		fmt.Println("\033[32;40m FROM:\033[0m")
+		//fmt.Println("FROM:")
+		from, _ := reader.ReadString('\n')
+		from = strings.TrimSpace(from)
+		// Se actualiza "tasks" por ser un arreglo que se esta pasando
+		tasks = task.AddTasks(tasks, from)
+		// Invocando al metodo para guardar pasandole la variable del archivo y el arreglo
+		task.SaveTasks(file, tasks)
+
 	}
 }
 
