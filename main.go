@@ -56,9 +56,16 @@ func main() {
 	} else {
 		tasks = []task.Task{}
 	}
+
 	// Recibiendo los argumentos del usuario, los cuales deben ser superiores a dos, pues el primero [0] es la información del programa
 	if len(os.Args) < 2 {
 		printUsage()
+	}
+
+	// Creando las opciones del menu
+	switch os.Args[1] {
+	case "Listar":
+		task.ListTask(tasks)
 	}
 }
 
